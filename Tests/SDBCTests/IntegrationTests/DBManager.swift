@@ -8,7 +8,7 @@
 import Foundation
 import RDError
 import ExtensionsFoundation
-import SSQLite
+import SDBC
 
 class DBManager {
 

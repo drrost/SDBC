@@ -3,11 +3,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "SSQLite",
+    name: "SDBC",
     products: [
         .library(
-            name: "SSQLite",
-            targets: ["SSQLite"]),
+            name: "SDBC",
+            targets: ["SDBC"]),
     ],
     dependencies: [
         .package(
@@ -21,11 +21,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SSQLite",
+            name: "SDBC",
             dependencies: ["ExtensionsFoundation", "RDError"]),
         .testTarget(
-            name: "SSQLiteTests",
-            dependencies: ["SSQLite"],
+            name: "SDBCTests",
+            dependencies: ["SDBC"],
             resources: [
                 .process("ResourcesTest")
             ]

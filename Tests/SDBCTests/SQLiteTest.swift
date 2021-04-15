@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import SSQLite
+@testable import SDBC
 
 private let kEmptyDbName = "empty.db"
 private let kUserDbName = "user.db"

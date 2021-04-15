@@ -8,7 +8,7 @@
 import XCTest
 import SQLite3
 
-@testable import SSQLite
+@testable import SDBC
 
 class RunSQLScriptTest: XCTestCase {
 

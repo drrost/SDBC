@@ -1,4 +1,4 @@
-# Swift SQLite
+# Swift Database Connectivity
 
 The package simplifies working with SQLite DB file for Swift applications. May
 be used on any platform that suports Swift - iOS, macOS, Linux.
@@ -9,11 +9,12 @@ approach. It should at least:
 * Allow performing CRUD operations.
 * Work with both - Statement and PreparedStatement.
 
-The old version still works.
-
 ## Dependencies
 
 * SQLite3
+* [ExtensionsFoundation](https://github.com/drrost/swift-extensions-foundation)
+  package.
+* [RDError](https://github.com/drrost/swift-error) package.
 
 ## How to use
 

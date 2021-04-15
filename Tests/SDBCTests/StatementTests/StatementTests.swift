@@ -8,7 +8,7 @@
 import XCTest
 import ExtensionsFoundation
 
-@testable import SSQLite
+@testable import SDBC
 
 class StatementTests: XCTestCase {
 

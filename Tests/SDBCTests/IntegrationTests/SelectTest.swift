@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable import SSQLite
+@testable import SDBC
 
 class SelectTest: XCTestCase {
 
