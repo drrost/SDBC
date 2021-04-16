@@ -31,7 +31,7 @@ approach. It should at least:
 
 ![](docs/xcode.png)
 
-* Then paste `git@github.com:drrost/SSQLite.git` to the text field.
+* Then paste `git@github.com:drrost/SDBC.git` to the text field.
 
 ### Another package
 
@@ -40,8 +40,8 @@ To the `Package.swift` file of your package add in `dependencies` section:
 ```swift
 dependencies: [
     .package(
-        name: "SSQLite",
-        url: "git@github.com:drrost/SSQLite.git",
+        name: "SDBC",
+        url: "git@github.com:drrost/SDBC.git",
         from: "1.0.5")
 ],
 ```
@@ -52,7 +52,7 @@ Then in the same file add to the `targets` section:
 targets: [
     .target(
         name: "YourPackage",
-        dependencies: ["SSQLite"]),
+        dependencies: ["SDBC"]),
     .testTarget(
         name: "YourPackageTests",
         dependencies: ["YourPackage"]),

@@ -1,6 +1,6 @@
 //
 //  SQLite.swift
-//  A part of git@github.com:drrost/SSQLite.git project
+//  A part of git@github.com:drrost/SDBC.git project
 //
 //  Created by Rostyslav Druzhchenko on 31.01.2020.
 //
