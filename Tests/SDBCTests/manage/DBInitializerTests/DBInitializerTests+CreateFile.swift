@@ -1,0 +1,39 @@
+//
+//  DBInitializerTests+CreateFile.swift
+//
+//
+//  Created by Rostyslav Druzhchenko on 18.04.2021.
+//
+
+import XCTest
+
+@testable import SDBC
+
+class DBInitializerTests_CreateFile: DBInitializerTests {
+
+    // MARK: - Create database file tests
+
+    func testCreation_Prod() {
+        // Given
+        let settings = DBSettings(.prod, "database.sqlite", root, initScriptPath)
+        sut = DBInitializer(settings)
+
+        // When
+        try! sut.initDatabase()
+
+        // Then
+        XCTAssertTrue(FileManager.exists("/tmp/DBInitializer_tests/database.sqlite"))
+    }
+
+    func testCreation_UnitTests() {
+        // Given
+        let settings = DBSettings(.unitTest, "database.sqlite", root, initScriptPath)
+        sut = DBInitializer(settings)
+
+        // When
+        try! sut.initDatabase()
+
+        // Then
+        XCTAssertTrue(FileManager.exists("/tmp/DBInitializer_tests/database_test.sqlite"))
+    }
+}

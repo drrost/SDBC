@@ -59,6 +59,13 @@ targets: [
     ]
 ```
 
+### DBManager
+
+Responsibilities:
+
+* Is able to switch environment - prod and unit test.
+* Create 
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
