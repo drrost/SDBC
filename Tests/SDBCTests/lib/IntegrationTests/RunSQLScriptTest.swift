@@ -32,8 +32,9 @@ class RunSQLScriptTest: XCTestCase {
 
         let root = "/tmp/RunSQLScriptTest"
 
+        DBEnvironmentStore.shared().environment = .unitTest
         let settings = DBSettings(
-            .unitTest, "tets_big_story.sqlite", root, "init.sql", Bundle.module)
+            "tets_big_story.sqlite", root, "init.sql", Bundle.module)
         let dbManager = try! DBManager(settings)
         let connection = try! dbManager.connect()
 

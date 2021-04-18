@@ -33,7 +33,7 @@ class DBInitializer {
     // MARK: - Private
 
     func generateDbPath() -> String {
-        if settings.environment == .prod {
+        if DBEnvironmentStore.shared().environment == .prod {
             return settings.rootPath.appendingPathComponent(settings.fileName)
         } else {
             var components = settings.fileName.split(".")

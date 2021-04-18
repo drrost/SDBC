@@ -21,8 +21,9 @@ class UpdateRowTest: XCTestCase {
     // MARK: - Tests routines
 
     override func setUp() {
+        DBEnvironmentStore.shared().environment = .unitTest
         let settings = DBSettings(
-            .unitTest, "update_row.sqlite", root, "init.sql", Bundle.module)
+            "update_row.sqlite", root, "init.sql", Bundle.module)
         dbManager = try! DBManager(settings)
         connection = try! dbManager.connect()
     }

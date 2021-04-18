@@ -26,8 +26,9 @@ class DBManagerTests: XCTestCase {
 
     func testCreation_Prod() {
         // Given
+        DBEnvironmentStore.shared().environment = .prod
         let settings = DBSettings(
-            .prod, "database.sqlite", root, "test_init.sql", Bundle.module)
+            "database.sqlite", root, "test_init.sql", Bundle.module)
 
         // When
         sut = try! DBManager(settings)
@@ -39,8 +40,9 @@ class DBManagerTests: XCTestCase {
 
     func testCreation_Unit() {
         // Given
+        DBEnvironmentStore.shared().environment = .unitTest
         let settings = DBSettings(
-            .unitTest, "database.sqlite", root, "test_init.sql", Bundle.module)
+            "database.sqlite", root, "test_init.sql", Bundle.module)
 
         // When
         sut = try! DBManager(settings)
@@ -55,8 +57,9 @@ class DBManagerTests: XCTestCase {
         // Given
         let root = "~/Documents/db".resolve
 
+        DBEnvironmentStore.shared().environment = .prod
         let settings = DBSettings(
-            .prod, "database.sqlite", root, "test_init.sql", Bundle.module)
+            "database.sqlite", root, "test_init.sql", Bundle.module)
 
         // When
         sut = try! DBManager(settings)

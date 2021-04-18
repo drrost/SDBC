@@ -12,9 +12,19 @@ public enum DBEnvironment {
     case unitTest
 }
 
+public class DBEnvironmentStore {
+
+    public var environment: DBEnvironment = .prod
+
+    private static let instance = DBEnvironmentStore()
+
+    public static func shared() -> DBEnvironmentStore {
+        instance
+    }
+}
+
 public class DBSettings {
 
-    let environment: DBEnvironment
     let fileName: String
     let rootPath: String
     let initScriptPath: String
@@ -22,14 +32,12 @@ public class DBSettings {
     let initScriptFromResources: Bool
 
     public init(
-        _ environment: DBEnvironment,
         _ fileName: String,
         _ rootPath: String,
         _ initScriptPath: String,
         _ bundle: Bundle,
         _ initScriptFromResources: Bool = true) {
 
-        self.environment = environment
         self.fileName = fileName
         self.rootPath = rootPath
         self.initScriptPath = initScriptPath

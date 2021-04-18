@@ -15,8 +15,9 @@ class DBInitializerTests_CreateTable: DBInitializerTests {
 
     func testCreationTestTable_Prod() {
         // Given
+        DBEnvironmentStore.shared().environment = .prod
         let settings = DBSettings(
-            .prod, "database.sqlite", root, "test_init.sql", Bundle.module)
+            "database.sqlite", root, "test_init.sql", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
@@ -29,8 +30,9 @@ class DBInitializerTests_CreateTable: DBInitializerTests {
 
     func testCreationTestTable_Tests() {
         // Given
+        DBEnvironmentStore.shared().environment = .unitTest
         let settings = DBSettings(
-            .unitTest, "database.sqlite", root, "test_init.sql", Bundle.module)
+            "database.sqlite", root, "test_init.sql", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
