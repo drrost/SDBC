@@ -9,15 +9,30 @@ import Foundation
 
 public class DBManager {
 
+    // MARK: - Variables
+    
     private let settings: DBSettings
-    private let databasePath: String
+    private var databasePath: String!
+
+    // MARK: - Init
 
     public init(_ settings: DBSettings) throws {
         self.settings = settings
+        try initDatabase()
+    }
 
-        let initializer = DBInitializer(settings)
-        try initializer.initDatabase()
-        databasePath = initializer.databasePath
+    // MARK: - Public
+
+    public func connect() throws -> Connection {
+        if FileManager.exists(databasePath) == false {
+            try initDatabase()
+        }
+        return try DriverManager.getConnection(databasePath)
+    }
+
+    public func drop() throws {
+        let dirPath = (databasePath as NSString).deletingLastPathComponent
+        try FileManager.delete(dirPath)
     }
 
     public func isTableExist(_ tableName: String) -> Bool {
@@ -35,5 +50,13 @@ public class DBManager {
         }
 
         return count == 1
+    }
+
+    // MARK: - Private
+
+    private func initDatabase() throws {
+        let initializer = DBInitializer(settings)
+        try initializer.initDatabase()
+        databasePath = initializer.databasePath
     }
 }

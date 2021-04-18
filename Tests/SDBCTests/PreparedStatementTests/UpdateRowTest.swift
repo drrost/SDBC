@@ -13,17 +13,22 @@ class UpdateRowTest: XCTestCase {
 
     // MARK: - Variables
 
-    let dbManager = DBManager()
+    var dbManager: DBManager!
     var connection: Connection!
+
+    let root = "/tmp/UpdateRowTest_tests"
 
     // MARK: - Tests routines
 
     override func setUp() {
-        initDb()
+        let settings = DBSettings(
+            .unitTest, "update_row.sqlite", root, "init.sql", Bundle.module)
+        dbManager = try! DBManager(settings)
+        connection = try! dbManager.connect()
     }
 
     override func tearDown() {
-        try! dbManager.erase()
+        try! dbManager.drop()
     }
 
     // MARK: - Init tests
@@ -60,21 +65,6 @@ class UpdateRowTest: XCTestCase {
             XCTAssertEqual(0, try rs.getInt("age"))
         } catch {
             XCTAssertTrue(false, "code above should not throw: \"\(error.localizedDescription)\"")
-        }
-    }
-
-    private func initDb() {
-
-        connection = try! dbManager.connect()
-
-        let initSql = Bundle.module.path(for: "init.sql")
-
-        do {
-            let sql = try! String(contentsOf: initSql!)
-            let statement = try connection.createStatement()
-            try statement.exec(sql)
-        } catch {
-            XCTAssertTrue(false, "code above should not throw")
         }
     }
 }

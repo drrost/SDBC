@@ -15,7 +15,8 @@ class DBInitializerTests_GeneratePath: DBInitializerTests {
 
     func testGeneratePathForProd() {
         // Given
-        let settings = DBSettings(.prod, "database.sqlite", root, "")
+        let settings = DBSettings(
+            .prod, "database.sqlite", root, "", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
@@ -27,7 +28,8 @@ class DBInitializerTests_GeneratePath: DBInitializerTests {
 
     func testGeneratePathForUnitTests() {
         // Given
-        let settings = DBSettings(.unitTest, "database.sqlite", root, "")
+        let settings = DBSettings(
+            .unitTest, "database.sqlite", root, "", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
@@ -39,7 +41,8 @@ class DBInitializerTests_GeneratePath: DBInitializerTests {
 
     func testGeneratePathForUnitTests_OneComponent() {
         // Given
-        let settings = DBSettings(.unitTest, "database", root, "")
+        let settings = DBSettings(
+            .unitTest, "database", root, "", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
@@ -51,7 +54,8 @@ class DBInitializerTests_GeneratePath: DBInitializerTests {
 
     func testGeneratePathForUnitTests_ThreeComponents() {
         // Given
-        let settings = DBSettings(.unitTest, "database.main.sqlite", root, "")
+        let settings = DBSettings(
+            .unitTest, "database.main.sqlite", root, "", Bundle.module)
         sut = DBInitializer(settings)
 
         // When

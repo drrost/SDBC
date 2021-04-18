@@ -18,16 +18,22 @@ public class DBSettings {
     let fileName: String
     let rootPath: String
     let initScriptPath: String
+    let bundle: Bundle
+    let initScriptFromResources: Bool
 
     public init(
         _ environment: DBEnvironment,
         _ fileName: String,
         _ rootPath: String,
-        _ initScriptPath: String) {
+        _ initScriptPath: String,
+        _ bundle: Bundle,
+        _ initScriptFromResources: Bool = true) {
 
         self.environment = environment
         self.fileName = fileName
         self.rootPath = rootPath
         self.initScriptPath = initScriptPath
+        self.bundle = bundle
+        self.initScriptFromResources = initScriptFromResources
     }
 }

@@ -14,7 +14,6 @@ class DBInitializerTests: XCTestCase {
     // MARK: - Variables
 
     var sut: DBInitializer!
-    var initScriptPath: String!
 
     let root = "/tmp/DBInitializer_tests"
 
@@ -22,8 +21,6 @@ class DBInitializerTests: XCTestCase {
 
     override func setUp() {
         try! FileManager.createDirectory(root)
-        let initSqlName = "test_init.sql"
-        initScriptPath = Bundle.module.path(for: initSqlName)
     }
 
     override func tearDown() {

@@ -15,7 +15,8 @@ class DBInitializerTests_CreateFile: DBInitializerTests {
 
     func testCreation_Prod() {
         // Given
-        let settings = DBSettings(.prod, "database.sqlite", root, initScriptPath)
+        let settings = DBSettings(
+            .prod, "database.sqlite", root, "test_init.sql", Bundle.module)
         sut = DBInitializer(settings)
 
         // When
@@ -27,7 +28,8 @@ class DBInitializerTests_CreateFile: DBInitializerTests {
 
     func testCreation_UnitTests() {
         // Given
-        let settings = DBSettings(.unitTest, "database.sqlite", root, initScriptPath)
+        let settings = DBSettings(
+            .unitTest, "database.sqlite", root, "test_init.sql", Bundle.module)
         sut = DBInitializer(settings)
 
         // When

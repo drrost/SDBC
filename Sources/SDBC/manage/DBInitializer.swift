@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import RDError
 
-public class DBInitializer {
+class DBInitializer {
 
     let settings: DBSettings
 
-    public var databasePath: String!
+    var databasePath: String!
 
     public init(_ settings: DBSettings) {
         self.settings = settings
@@ -19,12 +20,13 @@ public class DBInitializer {
 
     // MARK: - Public
 
-    public func initDatabase() throws {
+    func initDatabase() throws {
 
         databasePath = generateDbPath()
 
         try createDatabaseFile(databasePath)
-        let sql = try readInitScriptContent(settings.initScriptPath)
+        let scriptPath = try getScriptPath(settings)
+        let sql = try readInitScriptContent(scriptPath)
         try execInitScript(databasePath, sql)
     }
 
@@ -58,5 +60,21 @@ public class DBInitializer {
         let connection = try DriverManager.getConnection(path)
         let statement = try connection.createStatement()
         try statement.exec(sql)
+    }
+
+    private func getScriptPath(_ settings: DBSettings) throws -> String {
+
+        let bundle = settings.bundle
+        let path = settings.initScriptPath
+
+        if settings.initScriptFromResources {
+            if let path = bundle.path(for: path) {
+                return path
+            } else {
+                throw RDError("File \(path) not found")
+            }
+        } else {
+            return path
+        }
     }
 }

@@ -12,26 +12,30 @@ import SQLite3
 
 class RunSQLScriptTest: XCTestCase {
 
+    override func setUp() {
+        let toDeleteFiles = [
+            "/private/tmp/RunSQLScriptTest/tets_big_story.sqlite"
+            ]
+
+        for file in toDeleteFiles {
+            if FileManager.exists(file) {
+                try! FileManager.delete(file)
+            }
+        }
+    }
+
     // MARK: - Init tests
 
     func testBigStory() {
 
         // Given
 
-        let dbManager = DBManager()
+        let root = "/tmp/RunSQLScriptTest"
+
+        let settings = DBSettings(
+            .unitTest, "tets_big_story.sqlite", root, "init.sql", Bundle.module)
+        let dbManager = try! DBManager(settings)
         let connection = try! dbManager.connect()
-
-        let initSql = Bundle.module.path(for: "init.sql")
-
-        do {
-            let sql = try! String(contentsOf: initSql!)
-            let statement = try connection.createStatement()
-
-            // When
-            try statement.exec(sql)
-        } catch {
-            XCTAssertTrue(false, "code above should not throw")
-        }
 
         // Then
         do {
@@ -58,6 +62,6 @@ class RunSQLScriptTest: XCTestCase {
                 false, "The code should not throw any errors but SQLException")
         }
 
-        try! dbManager.erase()
+        try! dbManager.drop()
     }
 }
