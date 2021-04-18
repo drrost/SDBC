@@ -49,4 +49,22 @@ class DBManagerTests: XCTestCase {
         XCTAssertTrue(FileManager.exists("/tmp/DBManagerTests_tests/database_test.sqlite"))
         XCTAssertTrue(sut.isTableExist("test_table"))
     }
+
+    #if os(iOS)
+    func testCreation_Prod_iOS() {
+        // Given
+        let root = "~/Documents/db".resolve
+
+        let settings = DBSettings(
+            .prod, "database.sqlite", root, "test_init.sql", Bundle.module)
+
+        // When
+        sut = try! DBManager(settings)
+
+        // Then
+        XCTAssertTrue(sut.databasePath.ends("/data/Documents/db/database.sqlite"))
+        XCTAssertTrue(FileManager.exists(sut.databasePath))
+        XCTAssertTrue(sut.isTableExist("test_table"))
+    }
+    #endif
 }
