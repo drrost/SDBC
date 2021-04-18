@@ -11,6 +11,8 @@ public class DBInitializer {
 
     let settings: DBSettings
 
+    public var databasePath: String!
+
     public init(_ settings: DBSettings) {
         self.settings = settings
     }
@@ -18,10 +20,12 @@ public class DBInitializer {
     // MARK: - Public
 
     public func initDatabase() throws {
-        let path = generateDbPath()
-        try createDatabaseFile(path)
+
+        databasePath = generateDbPath()
+
+        try createDatabaseFile(databasePath)
         let sql = try readInitScriptContent(settings.initScriptPath)
-        try execInitScript(sql)
+        try execInitScript(databasePath, sql)
     }
 
     // MARK: - Private
@@ -49,7 +53,10 @@ public class DBInitializer {
         try String(contentsOf: path)
     }
 
-    private func execInitScript(_ sql: String) throws {
+    private func execInitScript(_ path: String, _ sql: String) throws {
 
+        let connection = try DriverManager.getConnection(path)
+        let statement = try connection.createStatement()
+        try statement.exec(sql)
     }
 }
