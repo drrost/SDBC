@@ -65,3 +65,17 @@ class RunSQLScriptTest: XCTestCase {
         try! dbManager.drop()
     }
 }
+
+class User {
+
+    // MARK: - Variables
+
+    var id: Int = 0
+    var firstName: String = ""
+    var lastName: String = ""
+    var age: Int = 0
+
+    // MARK: - Init
+
+    init() {}
+}
