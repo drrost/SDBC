@@ -35,7 +35,7 @@ public class DBSettings {
         _ fileName: String,
         _ rootPath: String,
         _ initScriptPath: String,
-        _ bundle: Bundle,
+        _ bundle: Bundle = Bundle.main,
         _ initScriptFromResources: Bool = true) {
 
         self.fileName = fileName
