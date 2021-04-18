@@ -12,7 +12,7 @@ public class DBManager {
     // MARK: - Variables
     
     private let settings: DBSettings
-    private var databasePath: String!
+    var databasePath: String!
 
     // MARK: - Init
 

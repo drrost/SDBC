@@ -19,6 +19,7 @@ class DBManagerTests: XCTestCase {
     // MARK: - Tests routines
 
     override func setUp() {
+        try? FileManager.delete(root)
     }
 
     // MARK: - Init tests
@@ -30,6 +31,22 @@ class DBManagerTests: XCTestCase {
 
         // When
         sut = try! DBManager(settings)
+
         // Then
+        XCTAssertTrue(FileManager.exists("/tmp/DBManagerTests_tests/database.sqlite"))
+        XCTAssertTrue(sut.isTableExist("test_table"))
+    }
+
+    func testCreation_Unit() {
+        // Given
+        let settings = DBSettings(
+            .unitTest, "database.sqlite", root, "test_init.sql", Bundle.module)
+
+        // When
+        sut = try! DBManager(settings)
+
+        // Then
+        XCTAssertTrue(FileManager.exists("/tmp/DBManagerTests_tests/database_test.sqlite"))
+        XCTAssertTrue(sut.isTableExist("test_table"))
     }
 }
