@@ -12,12 +12,21 @@ import SQLite3
 
 class CreateTableTest: XCTestCase {
 
+    override func setUp() {
+        let dbName = "user.db"
+        let dbPath = Bundle.module.path(for: dbName)! + "2"
+        if FileManager.exists(dbPath) {
+            try! FileManager.delete(dbPath)
+        }
+        try! FileManager.createFile(dbPath)
+    }
+
     // MARK: - Init tests
 
     func testCreateTable() {
         // Given
         let dbName = "user.db"
-        let dbPath = Bundle.module.path(for: dbName)
+        let dbPath = Bundle.module.path(for: dbName)! + "2"
         let connection = try! DriverManager.getConnection(dbPath)
         let sql = "CREATE TABLE test (test_id INTEGER, name TEXT);"
 
@@ -32,7 +41,7 @@ class CreateTableTest: XCTestCase {
     func testCreateTableTwice_ThrowsError() {
         // Given
         let dbName = "user.db"
-        let dbPath = Bundle.module.path(for: dbName)
+        let dbPath = Bundle.module.path(for: dbName)! + "2"
         let connection = try! DriverManager.getConnection(dbPath)
         let sql = "CREATE TABLE test2 (test_id INTEGER, name TEXT);"
 
