@@ -42,6 +42,14 @@ class ResultSetSqlite: ResultSet {
         return Int(sqlite3_column_int64(statement.getNative(), index32))
     }
 
+    func getUInt64(_ columnLabel: String) throws -> UInt64 {
+        guard let index = columns.firstIndex(of: columnLabel) else {
+            throw SQLException("Can't find column: \"\(columnLabel)\"")
+        }
+        let index32 = Int32(index)
+        return UInt64(sqlite3_column_int64(statement.getNative(), index32))
+    }
+
     func getDouble(_ columnLabel: String) throws -> Double {
         throw RDError("Method is not implmeneted")
     }

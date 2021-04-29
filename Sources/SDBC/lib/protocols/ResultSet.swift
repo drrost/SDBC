@@ -14,6 +14,7 @@ public protocol ResultSet {
 
     func next() throws -> Bool
     func getInt(_ columnLabel: String) throws -> Int
+    func getUInt64(_ columnLabel: String) throws -> UInt64
     func getDouble(_ columnLabel: String) throws -> Double
     func getString(_ columnLabel: String) throws -> String
     func getBool(_ columnLabel: String) throws -> Bool
