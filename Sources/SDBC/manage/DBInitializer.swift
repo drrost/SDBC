@@ -24,6 +24,8 @@ class DBInitializer {
 
         databasePath = generateDbPath()
 
+        if FileManager.exists(databasePath) { return }
+
         try createDatabaseFile(databasePath)
         let scriptPath = try getScriptPath(settings)
         let sql = try readInitScriptContent(scriptPath)
