@@ -69,6 +69,24 @@ class PreparedStatementSqlite: StatementSQLite, PreparedStatement {
         batch[parameterIndex - 1].type = .text
     }
 
+    func executeQuery() throws -> ResultSet {
+
+        guard let db = connection?.getDb() else {
+            throw SQLException("Can't prepare statement, connection is nil")
+        }
+
+        let binded = try bind()
+
+        let code = sqlite3_prepare_v2(db, binded, -1, &nativeStatement, nil)
+        if code != SQLITE_OK {
+            let nativeErrorMessage = String(cString: sqlite3_errmsg(db))
+            throw SQLException("Statement creattion failed with code \(code)",
+                               nativeErrorMessage)
+        }
+
+        return try getResultSet()
+    }
+
     func executeUpdate() throws -> Int32 {
         // Avoid SQLITE_MISUSE error
         guard sql.trimN().count > 0 else { return 0 }

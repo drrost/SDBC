@@ -9,6 +9,7 @@ import Foundation
 
 public protocol PreparedStatement: Statement {
 
+    func executeQuery() throws -> ResultSet
     func executeUpdate() throws -> Int32
 
     func setNull(_ parameterIndex: Int, _ sqlType: Int) throws

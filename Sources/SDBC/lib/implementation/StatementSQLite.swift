@@ -16,7 +16,7 @@ class StatementSQLite: Statement {
 
     weak var connection: Connection?
     private var rs: ResultSet!
-    private var nativeStatement: OpaquePointer!
+    var nativeStatement: OpaquePointer!
 
     // MARK: - Statement
 
