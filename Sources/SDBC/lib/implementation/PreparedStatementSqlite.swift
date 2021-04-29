@@ -15,6 +15,7 @@ class PreparedStatementSqlite: StatementSQLite, PreparedStatement {
 
     private enum DataType {
         case int
+        case uint64
         case text
         case real
         case null
@@ -52,6 +53,11 @@ class PreparedStatementSqlite: StatementSQLite, PreparedStatement {
     func setInt(_ parameterIndex: Int, _ x: Int) throws {
         batch[parameterIndex - 1].value = x
         batch[parameterIndex - 1].type = .int
+    }
+
+    func setUInt64(_ parameterIndex: Int, _ x: UInt64) throws {
+        batch[parameterIndex - 1].value = x
+        batch[parameterIndex - 1].type = .uint64
     }
 
     func setDouble(_ parameterIndex: Int, _ x: Double) throws {
@@ -106,19 +112,17 @@ class PreparedStatementSqlite: StatementSQLite, PreparedStatement {
 
     private func elementToString(_ element: DataTypePair) throws -> String {
         switch element.type {
-            case .int:
-                return "\(element.value)"
-            case .text:
-                if let value = element.value as? String {
-                    return "'\(value)'"
-                } else {
-                    throw SQLException("Can't convert value to String," +
-                                        " value: \"\(element.value)\"")
-                }
-            case .real:
-                return "\(element.value)"
-            default:
-                throw SQLException("Unsupported type: \(element.type)")
+        case .int, .uint64, .real:
+            return "\(element.value)"
+        case .text:
+            if let value = element.value as? String {
+                return "'\(value)'"
+            } else {
+                throw SQLException("Can't convert value to String," +
+                                    " value: \"\(element.value)\"")
+            }
+        default:
+            throw SQLException("Unsupported type: \(element.type)")
         }
     }
 }

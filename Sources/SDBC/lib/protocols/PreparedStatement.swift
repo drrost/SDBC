@@ -14,6 +14,7 @@ public protocol PreparedStatement: Statement {
     func setNull(_ parameterIndex: Int, _ sqlType: Int) throws
     func setBoolean(_ parameterIndex: Int, _ x: Bool) throws
     func setInt(_ parameterIndex: Int, _ x: Int) throws
+    func setUInt64(_ parameterIndex: Int, _ x: UInt64) throws
     func setDouble(_ parameterIndex: Int, _ x: Double) throws
     func setString(_ parameterIndex: Int, _ x: String) throws
 }
