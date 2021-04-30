@@ -28,8 +28,10 @@ class DBInitializer {
 
         try createDatabaseFile(databasePath)
         let scriptPath = try getScriptPath(settings)
-        let sql = try readInitScriptContent(scriptPath)
-        try execInitScript(databasePath, sql)
+        if let scriptPath = scriptPath {
+            let sql = try readInitScriptContent(scriptPath)
+            try execInitScript(databasePath, sql)
+        }
     }
 
     // MARK: - Private
@@ -64,19 +66,20 @@ class DBInitializer {
         try statement.exec(sql)
     }
 
-    private func getScriptPath(_ settings: DBSettings) throws -> String {
+    private func getScriptPath(_ settings: DBSettings) throws -> String? {
+
+        guard let fileName = settings.initScriptFileName else { return nil }
 
         let bundle = settings.bundle
-        let path = settings.initScriptPath
 
         if settings.initScriptFromResources {
-            if let path = bundle.path(for: path) {
+            if let path = bundle.path(for: fileName) {
                 return path
             } else {
-                throw RDError("File \(path) not found")
+                throw RDError("File \(fileName) not found")
             }
         } else {
-            return path
+            return fileName
         }
     }
 }

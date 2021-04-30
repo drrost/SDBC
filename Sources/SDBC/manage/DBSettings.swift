@@ -27,21 +27,29 @@ public class DBSettings {
 
     let fileName: String
     let rootPath: String
-    let initScriptPath: String
+    let initScriptFileName: String?
     let bundle: Bundle
     let initScriptFromResources: Bool
 
     public init(
         _ fileName: String,
         _ rootPath: String,
-        _ initScriptPath: String,
+        _ initScriptFileName: String? = nil,
         _ bundle: Bundle = Bundle.main,
         _ initScriptFromResources: Bool = true) {
 
         self.fileName = fileName
         self.rootPath = rootPath
-        self.initScriptPath = initScriptPath
+        self.initScriptFileName = initScriptFileName
         self.bundle = bundle
         self.initScriptFromResources = initScriptFromResources
+    }
+
+    public init(_ path: String) {
+        fileName = path.lastPathComponent
+        rootPath = path.deleteLastPathComponent()
+        initScriptFileName = nil
+        bundle = Bundle.main
+        initScriptFromResources = true
     }
 }
