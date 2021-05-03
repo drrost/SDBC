@@ -9,6 +9,8 @@ import XCTest
 
 @testable import SDBC
 
+import ExtensionsFoundation
+
 class DBManagerTests: XCTestCase {
 
     // MARK: - Variables
@@ -19,7 +21,11 @@ class DBManagerTests: XCTestCase {
     // MARK: - Tests routines
 
     override func setUp() {
-        try? FileManager.delete(root)
+        deleteDirectories()
+    }
+
+    override func tearDown() {
+        deleteDirectories()
     }
 
     // MARK: - Init tests
@@ -52,6 +58,19 @@ class DBManagerTests: XCTestCase {
         XCTAssertTrue(sut.isTableExist("test_table"))
     }
 
+    func testCreationWithRoot() {
+        // Given
+        DBEnvironmentStore.shared().environment = .prod
+        let path = "/tmp/db_test/testdb.sqlite"
+        XCTAssertFalse(FileManager.exists(path))
+
+        // When
+        sut = try! DBManager(path)
+
+        // Then
+        XCTAssertTrue(FileManager.exists("/tmp/db_test/testdb.sqlite"))
+    }
+
     #if os(iOS)
     func testCreation_Prod_iOS() {
         // Given
@@ -70,4 +89,17 @@ class DBManagerTests: XCTestCase {
         XCTAssertTrue(sut.isTableExist("test_table"))
     }
     #endif
+}
+
+fileprivate extension DBManagerTests {
+
+    func deleteDirectories() {
+        let dirsToDelete = [
+            "~/Documents/db",
+            "/tmp/db_test/",
+            "/tmp/DBManagerTests_tests"
+        ]
+
+        try! deleteDirs(dirsToDelete)
+    }
 }

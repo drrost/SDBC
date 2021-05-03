@@ -21,6 +21,11 @@ public class DBManager {
         try initDatabase()
     }
 
+    public convenience init(_ path: String) throws {
+        let settings = DBSettings(path)
+        try self.init(settings)
+    }
+
     // MARK: - Public
 
     public func connect() throws -> Connection {
