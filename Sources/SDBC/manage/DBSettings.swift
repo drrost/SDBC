@@ -52,4 +52,12 @@ public class DBSettings {
         bundle = Bundle.main
         initScriptFromResources = true
     }
+
+    public init(_ path: String, _ initScriptFileName: String, _ bundle: Bundle) {
+        fileName = path.lastPathComponent
+        rootPath = path.deleteLastPathComponent()
+        self.initScriptFileName = initScriptFileName
+        self.bundle = bundle
+        initScriptFromResources = true
+    }
 }

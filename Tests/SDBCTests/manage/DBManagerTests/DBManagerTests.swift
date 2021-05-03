@@ -58,7 +58,7 @@ class DBManagerTests: XCTestCase {
         XCTAssertTrue(sut.isTableExist("test_table"))
     }
 
-    func testCreationWithRoot() {
+    func testCreationWithPath() {
         // Given
         DBEnvironmentStore.shared().environment = .prod
         let path = "/tmp/db_test/testdb.sqlite"
@@ -69,6 +69,22 @@ class DBManagerTests: XCTestCase {
 
         // Then
         XCTAssertTrue(FileManager.exists("/tmp/db_test/testdb.sqlite"))
+    }
+
+    func testCreationWithPathAndInitialScript() {
+        // Given
+        DBEnvironmentStore.shared().environment = .prod
+        let path = "/tmp/db_test_book/bookdb.sqlite"
+        XCTAssertFalse(FileManager.exists(path))
+        let settings = DBSettings(
+            path, "init_book.sql", Bundle.module)
+
+        // When
+        sut = try! DBManager(settings)
+
+        // Then
+        XCTAssertTrue(FileManager.exists("/tmp/db_test_book/bookdb.sqlite"))
+        XCTAssertTrue(sut.isTableExist("book"))
     }
 
     #if os(iOS)
@@ -97,6 +113,7 @@ fileprivate extension DBManagerTests {
         let dirsToDelete = [
             "~/Documents/db",
             "/tmp/db_test/",
+            "/tmp/db_test_book/",
             "/tmp/DBManagerTests_tests"
         ]
 
