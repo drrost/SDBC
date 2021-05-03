@@ -14,6 +14,8 @@ public protocol Statement: AnyObject {
     func close() throws
     func exec(_ sql: String) throws
 
+    func getGeneratedKeys() throws -> ResultSet
+
     func getResultSet() throws -> ResultSet
     func getNative() -> StatementNative
 }

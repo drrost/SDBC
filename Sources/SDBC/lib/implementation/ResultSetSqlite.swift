@@ -11,7 +11,7 @@ import SQLite3
 
 class ResultSetSqlite: ResultSet {
 
-    private weak var statement: Statement!
+    private var statement: Statement!
 
     var columns: [String]
     var row: Int = 0

@@ -76,6 +76,18 @@ class StatementSQLite: Statement {
         }
     }
 
+    func getGeneratedKeys() throws -> ResultSet {
+        guard let connection = connection else {
+            throw SQLException(
+                "Can't obtain generated keys, `connection' is nil")
+        }
+
+        let getGeneratedKeys =
+            try connection.prepareStatement("SELECT last_insert_rowid();")
+
+        return try getGeneratedKeys.executeQuery();
+    }
+
     func close() throws {
         sqlite3_finalize(nativeStatement)
     }
@@ -115,5 +127,18 @@ class StatementSQLite: Statement {
 
     func getNativeError(_ db: OpaquePointer?) -> String {
         return String(cString: sqlite3_errmsg(db))
+    }
+}
+
+public extension Statement {
+
+    func getLastId() throws -> Int {
+        let rs = try getGeneratedKeys()
+
+        if try rs.next() {
+            return try rs.getInt("last_insert_rowid()")
+        } else {
+            throw SQLException("There is no generated keys")
+        }
     }
 }
