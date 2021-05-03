@@ -11,23 +11,23 @@ import XCTest
 
 import ExtensionsFoundation
 
-class StatementTests_GetLastId: XCTestCase {
+class StatementTests_GetLastId: CleanableTestCase {
 
     // MARK: - Variables
 
     var dbManager: DBManager!
 
+    override var directoriesToDelete: [String] {
+        ["/tmp/user_db/"]
+    }
+
     // MARK: - Tests routines
 
     override func setUp() {
-        deleteDirectories()
+        super.setUp()
         let path = "/tmp/user_db/user.sqlite"
         let dbSettings = DBSettings(path, "init.sql", Bundle.module)
         dbManager = try! DBManager(dbSettings)
-    }
-
-    override func tearDown() {
-        deleteDirectories()
     }
 
     // MARK: - Init tests
@@ -44,16 +44,5 @@ class StatementTests_GetLastId: XCTestCase {
 
         // Then
         XCTAssertEqual(8, lastId)
-    }
-
-}
-
-fileprivate extension StatementTests_GetLastId {
-
-    func deleteDirectories() {
-        let directoriesToDelete = [
-            "/tmp/user_db/"
-        ]
-        try! deleteDirs(directoriesToDelete)
     }
 }

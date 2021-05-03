@@ -11,22 +11,19 @@ import XCTest
 
 import ExtensionsFoundation
 
-class DBManagerTests: XCTestCase {
+class DBManagerTests: CleanableTestCase {
 
     // MARK: - Variables
 
     var sut: DBManager!
     let root = "/tmp/DBManagerTests_tests"
 
-    // MARK: - Tests routines
-
-    override func setUp() {
-        deleteDirectories()
-    }
-
-    override func tearDown() {
-        deleteDirectories()
-    }
+    override var directoriesToDelete: [String] {[
+        "~/Documents/db",
+         "/tmp/db_test/",
+         "/tmp/db_test_book/",
+         "/tmp/DBManagerTests_tests"
+    ]}
 
     // MARK: - Init tests
 
@@ -105,18 +102,4 @@ class DBManagerTests: XCTestCase {
         XCTAssertTrue(sut.isTableExist("test_table"))
     }
     #endif
-}
-
-fileprivate extension DBManagerTests {
-
-    func deleteDirectories() {
-        let dirsToDelete = [
-            "~/Documents/db",
-            "/tmp/db_test/",
-            "/tmp/db_test_book/",
-            "/tmp/DBManagerTests_tests"
-        ]
-
-        try! deleteDirs(dirsToDelete)
-    }
 }
