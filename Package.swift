@@ -25,11 +25,13 @@ let package = Package(
             dependencies: ["ExtensionsFoundation", "RDError"]),
         .testTarget(
             name: "SDBCTests",
-            dependencies: ["SDBC"],
+            dependencies: [
+                "SDBC",
+                .product(name: "ExtensionXCTest", package: "ExtensionsFoundation")
+            ],
             resources: [
                 .process("ResourcesTest")
             ]
         )
     ]
 )
-

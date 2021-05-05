@@ -9,7 +9,7 @@ import XCTest
 
 @testable import SDBC
 
-import ExtensionsFoundation
+import ExtensionXCTest
 
 class StatementTests_GetLastId: CleanableTestCase {
 
