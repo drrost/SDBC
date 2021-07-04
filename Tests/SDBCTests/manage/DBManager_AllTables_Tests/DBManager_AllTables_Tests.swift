@@ -9,7 +9,7 @@ import XCTest
 
 @testable import SDBC
 
-import ExtensionXCTest
+import RDTest
 
 class DBManager_AllTables_Tests: CleanableTestCase {
 

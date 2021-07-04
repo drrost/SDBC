@@ -11,9 +11,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "ExtensionsFoundation",
+            name: "RDFoundation",
             url: "git@github.com:drrost/swift-extensions-foundation.git",
-            from: "1.0.0"),
+            .exact("1.2.9")),
         .package(
             name: "RDError",
             url: "git@github.com:drrost/swift-error.git",
@@ -22,12 +22,12 @@ let package = Package(
     targets: [
         .target(
             name: "SDBC",
-            dependencies: ["ExtensionsFoundation", "RDError"]),
+            dependencies: ["RDFoundation", "RDError"]),
         .testTarget(
             name: "SDBCTests",
             dependencies: [
                 "SDBC",
-                .product(name: "ExtensionXCTest", package: "ExtensionsFoundation")
+                .product(name: "RDTest", package: "RDFoundation")
             ],
             resources: [
                 .process("ResourcesTest")

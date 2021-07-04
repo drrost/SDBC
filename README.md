@@ -12,7 +12,7 @@ approach. It should at least:
 ## Dependencies
 
 * SQLite3
-* [ExtensionsFoundation](https://github.com/drrost/swift-extensions-foundation)
+* [RDFoundation](https://github.com/drrost/swift-extensions-foundation)
   package.
 * [RDError](https://github.com/drrost/swift-error) package.
 

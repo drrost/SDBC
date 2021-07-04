@@ -11,12 +11,12 @@
         }
       },
       {
-        "package": "ExtensionsFoundation",
+        "package": "RDFoundation",
         "repositoryURL": "git@github.com:drrost/swift-extensions-foundation.git",
         "state": {
           "branch": null,
-          "revision": "fee7125551578008b9fea03995fbe678779de8fd",
-          "version": "1.2.4"
+          "revision": "77af547283a1f74704939f02ab0bf8b6a1316b7d",
+          "version": "1.2.9"
         }
       }
     ]

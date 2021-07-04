@@ -8,7 +8,7 @@
 import Foundation
 import RDError
 import SQLite3
-import ExtensionsFoundation
+import RDFoundation
 
 public typealias StatementNative = OpaquePointer
 

@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import ExtensionsFoundation
+import RDFoundation
 
 @testable import SDBC
 
