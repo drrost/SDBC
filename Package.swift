@@ -13,7 +13,7 @@ let package = Package(
         .package(
             name: "RDFoundation",
             url: "git@github.com:drrost/swift-extensions-foundation.git",
-            .exact("1.2.9")),
+            .exact("1.3.0")),
         .package(
             name: "RDError",
             url: "git@github.com:drrost/swift-error.git",
